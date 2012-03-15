@@ -1,0 +1,191 @@
+/* --------- Generic definitions ---------- */
+
+body, input{font:11px Verdana,Helvetica,sans-serif;color:#1c1d1d;}
+
+input[type=text], input[type=number]{
+	border:1px solid #8EAAB0;
+	outline-width: 0;
+	border-radius:4px;
+}
+
+input[type=button]{
+	border:1px solid #5c5c5c;
+	border-radius:10px;
+	padding:3px 12px;
+	font-weight:bold;
+	box-shadow: 0px 1px 5px rgba(68,68,68,0.6);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(48%,#eeeeee), color-stop(50%,#e0e0e0), color-stop(100%,#ffffff));
+	-webkit-transition: all 1s linear;
+}
+
+input[type=button]:hover{
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#badaf8), color-stop(48%,#79b9f4), color-stop(50%,#5fa1e8), color-stop(100%,#d3ffff));
+	border:1px solid #4779cf;
+}
+
+.negative-hours{color:#f00;}
+
+h2{
+	color:#000;
+	font-size:18px;
+	font-weight:bold;
+}
+
+.last-line{
+	margin:0 20px 20px 0;
+	padding-bottom:10px;
+	border-bottom:1px dotted #ccc;
+}
+
+/* ------ Table definitions -----  */
+.main-info{width:55%;}
+
+
+#row-template{display:none;}
+
+#main-table{
+	border-collapse:collapse;
+	border-spacing: 0;
+}
+
+#main-table th{
+	background:#191D26;
+	color:#fff;
+	padding:5px;
+	font-weight:bold;
+}
+
+#main-table tr{-webkit-transition: all .1s linear;}
+#main-table tr:hover{
+	background:#3875d7;
+	color:#fff;
+}
+
+#main-table .even{background:#edf3fe;}
+#main-table .weekend, #legend-table .weekend{opacity:.5;}
+#main-table .holiday, #legend-table .holiday{background:#99c7de;}
+
+#main-table tr{border-bottom: 1px dotted #E7EBED;}
+#main-table td{padding:2px 5px;}
+
+#main-table input{width:60px;}
+
+#main-table input.obs{width:110px;}
+
+/* --------- Pannel definitions ---------- */
+
+.general-information{width:45%;}
+
+.general-information div{
+	font-size:14px;
+	line-height:25px;
+}
+
+ .general-information div.information{
+ 	font-weight:bold;
+ 	font-size:17px;
+ }
+
+#inputfile-import-data{
+	opacity:0;
+	height:0;
+}
+
+/* ---------- lightbox ----------  */
+
+.lightbox{
+	position:fixed;
+	border: 4px solid #8EAAB0;
+	border-radius:7px;
+	background:#fff;
+	padding:10px;
+	width:500px;
+	display:none;
+	box-shadow: 10px 10px 9px rgba(68,68,68,0.6);
+}
+
+.lightbox .close-button{
+	position:absolute;
+	right:5px;
+	top:5px;
+	color:#000;
+	font-weight:bold;
+	text-decoration:none;
+	font-size:11px;
+}
+
+.lightbox .center{
+	text-align:center;
+	margin-top:15px;
+}
+
+.lightbox .center > *{
+	margin:auto;
+	text-align:left;
+}
+
+/* ---------- holidays ----------  */
+
+#holidays-list-container{
+	max-height:340px;
+	overflow:auto;	
+}
+
+#holidays th{text-align:left;}
+#holidays .holiday_description{width:300px;}
+
+/* ---------- configuration ----------  */
+
+#configuration input{
+	font-size:14px;
+}
+
+/* ---------- Menu ----------  */
+
+#menu{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	position:fixed;
+	top:0;
+	right:0px;
+	width:160px;
+}
+
+#menu li{
+	font-size:15px;
+	text-align:right;
+	width:160px;
+}
+
+#menu li a{
+	display:block;
+	text-decoration:none;
+	padding:5px;
+	color:#fff;
+	background:#000;
+	font-size:12px;
+	width:150px;
+	-webkit-transition: all .4s linear;
+}
+#menu li a.last{
+	border-radius:0 0 0 10px;
+}
+
+#menu li a:hover{
+	background:#555;
+}
+
+/* ---------- Legend ----------  */
+#legend .color{
+	width:22px;
+	height:20px;
+	border:1px solid;
+}
+
+#legend .commom_day{
+	border:11px solid #ff0;
+	border-color: #fff #fff #edf3fe #edf3fe;
+	width:0px;
+	height:0px;
+}

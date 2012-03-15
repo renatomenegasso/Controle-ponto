@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Controle de ponto</title>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="content-type" />
+	
+	<link rel="stylesheet" type="text/css" href="css/oocss.css" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	
+	<script src="libs/jquery.1.6.4.min.js"></script>
+	<script src="libs/jquery.json-2.3.min.js"></script>
+	<script src="libs/jquery.maskedinput-1.3.js"></script>
+	<script src="js/hrs.helpers.js"></script>
+	<script src="js/hrs.dao.js"></script>
+	<script src="js/hrs.timestamp.js"></script>
+	<script src="js/hrs.ui.month.js"></script>
+	<script src="js/hrs.ui.holiday.js"></script>
+	<script src="js/hrs.ui.main.js"></script>
+
+</head>
+
+<body>
+
+<div class="leftCol main-info">
+	<table id="main-table">
+		<tr class="fixed-row">
+			<th colspan="2">Dia</th>
+			<th>Entrada</th>
+			<th>Ida almoço</th>
+			<th>Volta almoço</th>
+			<th>Saída</th>
+			<th>Total</th>
+			<th>Almoço</th>
+			<th>Extra</th>
+			<th>Obs</th>
+			<!--<th>Ausente</th> -->
+		</tr>
+		<tr id="row-template" class="fixed-row">
+			<td>{data}</td>
+			<td>{diaSemana}</td>
+			<td><input type="text" value="{entrada}" class="start" /></td>
+			<td><input type="text" value="{ida_almoco}" class="lunch-start" /></td>
+			<td><input type="text" value="{volta_almoco}" class="lunch-end" /></td>
+			<td><input type="text" value="{saida}" class="end" /></td>
+			<td class="total">{total}</td>
+			<td class="almoco">{almoco}</td>
+			<td class="excedente">{excedente}</td>
+			<td class="obs_cell">
+				<input type="text" value="{obs}" class="obs" />
+			</td>
+			<!-- <td><input type="checkbox" value="S" class="ausent" /></td> -->
+		</tr>
+	</table>
+</div>
+
+<div class="rightCol general-information">
+	
+	<ul id="menu">
+		<li> <a href="#configuration" class="open-lightbox">Configurações</a> </li>
+		<li> <a href="#holidays" class="open-lightbox">Feriados cadastrados</a> </li>
+		<li> <a href="#confirm-export" class="open-lightbox">Exportar dados</a> </li>
+		<li> <a href="#import-data" id="import-data" class="last">Importar dados</a> <input type="file" id="inputfile-import-data" name="arquivos" /></li>
+	</ul>
+	
+	<h2>Informações do mês</h2>
+	
+	<div class="line">
+		<label class="unit size2of5">Mês: </label> 
+		<div class="unit lastUnit size3of5  information" id="month-name"></div>
+	</div>
+	
+	<div class="line">
+		<label class="unit size2of5">Horas <strong>extras</strong>: </label> 
+		<div class="unit lastUnit size3of5  information" id="extra-month"></div>
+	
+	
+	<div class="line">
+		<label class="unit size2of5">Horas <strong>trabalhadas</strong>: </label> 
+		<div class="unit lastUnit size3of5  information" id="total-month"></div>
+	</div>
+	
+	<div class="line last-line">
+		<div class="unit size1of2">
+			<input type="button" class="" value="Mês anterior" id="prev-month" />
+		</div>
+		
+		<div class="lastUnit size1of2">
+			<input type="button" value="Próximo mês" id="next-month" />
+		</div>
+	</div>
+	
+	<h2>Informações totais</h2>
+	
+	<div class="line">
+		<div class="unit size2of5">Total de horas <strong>extras</strong>: </div>
+		<div id="extra" class="unit lastUnit size3of5 information"></div> 
+	</div>
+	
+	<div class="line last-line">
+		<div class="unit size2of5">Total de horas <strong>trabalhadas</strong>: </div>
+		<div id="worked" class="unit lastUnit size3of5 information"></div> 
+	</div>
+	
+	<div id="legend">
+		<h2>Legenda:</h2>
+		
+		<div class="last-line">
+			<table id="legend-table">
+				<tr>
+					<td class="color">
+						<div class="commom_day"></div>
+					</td>
+					<td>Dia comum</td>
+				</tr>
+				<tr>
+					<td class="weekend color">
+						<div class="commom_day"></div>
+					</td>
+					<td>Final de semana</td>
+				</tr>
+				<tr>
+					<td class="holiday color"></td>
+					<td>Feriado</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div id="configuration" class="lightbox">
+		<a href="#close" class="close close-button">fechar X</a>
+		
+		<h2>Configurações</h2>
+		
+		<div class="line">
+			<label class="unit size1of3">Carga de trabalho diária: </label> 
+			<input type="number" step="0.5" min="0" id="total-work" class="size2of3 lastUnit" />
+		</div>
+		<div class="line"> 
+			<label class="unit size1of3">Tempo de almoço: </label> 
+			<input type="number" min="0" step="0.5" id="lunch-time" class="size2of3 lastUnit" />
+		</div>
+		
+		<div class="center">
+ 				<input type="button" class="close" value="Fechar" />
+ 			</div>
+	</div>
+	
+	<div id="holidays" class="lightbox">
+		<h2>Editar feriados</h2>
+		<a href="#close" class="close close-button">fechar X</a>
+		
+		<div id="holidays-list-container">
+			<table id="holidays-list">
+				<tr>
+					<th>Data</th>
+					<th>Descrição</th>
+				</tr>
+				<tr id="holiday_template">
+					<td><input type="text" class="holiday_date" /></td>
+					<td><input type="text" class="holiday_description" /></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="center">
+			<input type="button" class="close center" value="Fechar" />
+		</div>
+	</div>
+	
+	<div id="confirm-export" class="lightbox">
+		<h2>Exportar dados</h2>
+		<a href="#close" class="close close-button">fechar X</a>
+		
+		Deseja exportar os dados ? Será criado um arquivo 'download' na sua pasta de downloads, que pode ser importado a qualquer momento.
+		
+		<div class="center">
+			<input type="button" id="export-data" class="close center" value="Confirmar" />
+			<input type="button" class="close center" value="Cancelar" />
+		</div>
+	</div>
+	
+	<div id="confirm-import" class="lightbox">
+		<h2>Importar dados</h2>
+		<a href="#close" class="close close-button">fechar X</a>
+		
+		Deseja sobreescrever suas informações pelas informações do arquivo a ser importado?
+		
+		<div class="center">
+			<input type="button" id="proced-import" class="close center" value="Confirmar" />
+			<input type="button" class="close center" value="Cancelar" />
+		</div>
+	</div> 
+</div>
+
+<script>
+	hrs.ui.main.init($("#main-table"));
+</script>
+
+
+
+</body>
+
+</html>
