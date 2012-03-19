@@ -28,6 +28,7 @@ hrs.ui.month = function(month, year) {
 			total: _handleUndefinedDate(dateInfo.total),
 			almoco: _handleUndefinedDate(dateInfo.almoco),
 			excedente: _handleUndefinedDate(dateInfo.extra),
+			checked: dateInfo.ausent ? 'checked="checked"' : '',
 			holiday: dateInfo.holiday != null,
 			obs : observation 
 		};
@@ -68,16 +69,22 @@ hrs.ui.month = function(month, year) {
 	function changeEvent(e){
 		var $row = $(e.target).closest('tr');
 		var rowDate = new Date(parseInt($row.attr('id')));
-			
-		console.log($row.find('.lunch-start').val());
+		var isAusent =  $row.find('.ausent')[0].checked;
 		
 		_dao.storeDate(rowDate, {
 			entrada: _dateHelpers.parseDateTime($row.find('.start').val(), rowDate),
 			ida_almoco: _dateHelpers.parseDateTime($row.find('.lunch-start').val(), rowDate),
 			volta_almoco: _dateHelpers.parseDateTime($row.find('.lunch-end').val(), rowDate),
 			saida: _dateHelpers.parseDateTime($row.find('.end').val(), rowDate),
-			obs: $row.find('.obs').val()
+			obs: $row.find('.obs').val(),
+			ausent: isAusent
 		});
+		
+		if(isAusent){
+			$row.find('input[type!=checkbox]').attr('disabled', true);
+		} else {
+			$row.find('input[type!=checkbox]').removeAttr('disabled');
+		}
 		
 		var info = _getRowInfo(rowDate);
 		$row.find('.total').html(info.total);
@@ -85,7 +92,7 @@ hrs.ui.month = function(month, year) {
 		$row.find('.almoco').html(info.almoco);
 		
 		if(_updatedRowCallback != null) _updatedRowCallback($row, info);
-	}
+	}	
 	
 	function blurEvent(e){
 		var $input = $(e.target);

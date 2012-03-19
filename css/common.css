@@ -38,7 +38,7 @@ h2{
 }
 
 /* ------ Table definitions -----  */
-.main-info{width:55%;}
+.main-info{width:60%;}
 
 
 #row-template{display:none;}
@@ -74,7 +74,7 @@ h2{
 
 /* --------- Pannel definitions ---------- */
 
-.general-information{width:45%;}
+.general-information{width:40%;}
 
 .general-information div{
 	font-size:14px;

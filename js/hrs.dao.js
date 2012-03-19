@@ -72,7 +72,7 @@ hrs.dao = (function($, helpers){
 			return info;
 		}
 		
-		return {entrada:'', saida:'', ida_almoco: '',  volta_almoco: '', obs: '', holiday: getHoliday(dateTime)};
+		return {entrada:'', saida:'', ida_almoco: '',  volta_almoco: '', obs: '', holiday: getHoliday(dateTime), ausent: false};
 	};
 	
 	public.storeDate = function(dateTime, data){
@@ -132,7 +132,21 @@ hrs.dao = (function($, helpers){
 			if(isNaN(k))
 				continue;
 			
+			var dt = new Date(parseInt(k));
+			
 			var info = public.getDateInfo(k);
+			
+			if(info.ausent){
+				var totalDay = getTotalWork(dt, info.holiday != null) * 60 * 60 * 1000;
+				if(dt.getMonth() == month){
+					extraMonth -= totalDay;
+					totalMonth -= totalDay;
+				}
+				
+				totalTime -= totalDay;
+				totalExtra -= totalDay;
+				continue;
+			}
 			
 			if(info.total == "") continue;
 			
@@ -163,6 +177,8 @@ hrs.dao = (function($, helpers){
 		for(var k in data){
 			localStorage[k] = data[k];
 		}
+		
+		public.loadSettings();
 	};
 	
 	init();
