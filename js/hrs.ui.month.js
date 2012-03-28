@@ -30,7 +30,8 @@ hrs.ui.month = function(month, year) {
 			excedente: _handleUndefinedDate(dateInfo.extra),
 			checked: dateInfo.ausent ? 'checked="checked"' : '',
 			holiday: dateInfo.holiday != null,
-			obs : observation 
+			obs : observation,
+			cssObsPreenchida: (observation != "") ? ' filled' : ''
 		};
 	}
 	
@@ -61,7 +62,8 @@ hrs.ui.month = function(month, year) {
 		}
 		
 		var $rowContent = $(rowContent);
-		$rowContent.find('input').change(changeEvent).filter(':not(.obs)').blur(blurEvent);
+		$rowContent.find('input,textarea').change(changeEvent).filter(':not(.obs)').blur(blurEvent);
+		$rowContent.find('.view-full-obs').click(showFullObs);
 		
 		$target.append($rowContent);
 	}
@@ -113,6 +115,35 @@ hrs.ui.month = function(month, year) {
 		arrTime[1] = _helpers.number.addZeros(arrTime[1], 2);
 		
 		$input.val(arrTime.join(':'));
+	}
+	
+	function showFullObs(e){
+		e.preventDefault();
+		var offset = $(this).offset(),
+			$boxObs = $('#box-obs');
+		
+		$boxObs.css({
+			top: offset.top + 'px',
+			left: offset.left + 'px'
+		})
+		.fadeIn()
+		.find('textarea').val(this.title);
+		
+		$boxObs[0].refInput = $(this).closest('.obs_cell').find('.obs');
+	}
+	
+	function hideBoxObs(e){
+		e.preventDefault();
+		$boxObs = $('#box-obs').fadeOut();
+		var value = $boxObs.find('textarea').val(); 
+		
+		$boxObs[0].refInput 
+			.val(value)
+			.trigger('change')
+			.parents('.obs_cell')
+			.find('.view-full-obs')
+			[ value == "" ? 'removeClass' : 'addClass' ]('filled')
+			.attr('title', value);
 		
 	}
 	
@@ -135,6 +166,8 @@ hrs.ui.month = function(month, year) {
 			date.setDate(prev + 1);
 			//if(date.getDate())
 		}
+		
+		$('#box-obs .close-obs').click(hideBoxObs);
 	};
 	
 	return public;

@@ -46,6 +46,7 @@ h2{
 #main-table{
 	border-collapse:collapse;
 	border-spacing: 0;
+	width:95%;
 }
 
 #main-table th{
@@ -68,9 +69,51 @@ h2{
 #main-table tr{border-bottom: 1px dotted #E7EBED;}
 #main-table td{padding:2px 5px;}
 
-#main-table input{width:60px;}
+#main-table input{width:40px;}
 
 #main-table input.obs{width:110px;}
+
+#main-table .view-full-obs{
+	display:block;
+	width:12px;
+	height:12px;
+	border: 1px solid #8EAAB0;
+	background:#fff;
+	border-radius:4px;
+	margin:auto;
+}
+
+#main-table .view-full-obs.filled{
+	background:#DDE3EE;
+}
+
+#box-obs{
+	position:absolute;
+	border: 1px solid #8EAAB0;
+	padding:4px;
+	background:#fff;
+	display:none;
+}
+
+#box-obs textarea{
+	border: 1px solid #8EAAB0;
+	width: 200px;
+	height: 50px;
+}
+
+#box-obs .close-obs{
+	position:absolute;
+	display:block;
+	width:13px;
+	height:13px;
+	padding:2px;
+	text-align:center;
+	right:-17px;
+	top:-17px;
+	text-decoration:none;
+	color:#fff;
+	background:#8EAAB0;
+}
 
 /* --------- Pannel definitions ---------- */
 
