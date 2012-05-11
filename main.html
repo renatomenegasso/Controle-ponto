@@ -69,21 +69,33 @@
 		<li> <a href="#import-data" id="import-data" class="last">Importar dados</a> <input type="file" id="inputfile-import-data" name="arquivos" /></li>
 	</ul>
 	
+	<h2>Informações consolidadas</h2>
+	
+	<div class="line">
+		<div class="unit label">Horas <strong>extras</strong>: </div>
+		<div id="extra" class="unit information"></div> 
+	</div>
+	
+	<div class="line last-line">
+		<div class="unit label">Horas <strong>trabalhadas</strong>: </div>
+		<div id="worked" class="unit information"></div> 
+	</div>
+	
 	<h2>Informações do mês</h2>
 	
 	<div class="line">
-		<label class="unit">Mês: </label> 
-		<div class="unit lastUnit information" id="month-name"></div>
+		<div class="unit label">Mês: </div> 
+		<div class="unit information small" id="month-name"></div>
 	</div>
 	
 	<div class="line">
-		<label class="unit">Horas <strong>extras</strong>: </label> 
-		<div class="unit lastUnit information" id="extra-month"></div>
-	
+		<div class="unit label">Horas <strong>extras</strong>: </div> 
+		<div class="unit information small" id="extra-month"></div>
+	</div>
 	
 	<div class="line">
-		<label class="unit">Horas <strong>trabalhadas</strong>: </label> 
-		<div class="unit lastUnit information" id="total-month"></div>
+		<div class="unit label">Horas <strong>trabalhadas</strong>: </div> 
+		<div class="unit information small" id="total-month"></div>
 	</div>
 	
 	<div class="line last-line">
@@ -94,18 +106,6 @@
 		<div class="lastUnit size1of2">
 			<input type="button" value="Próximo mês" id="next-month" />
 		</div>
-	</div>
-	
-	<h2>Informações totais</h2>
-	
-	<div class="line">
-		<div class="unit size2of5">Total de horas <strong>extras</strong>: </div>
-		<div id="extra" class="unit lastUnit size3of5 information"></div> 
-	</div>
-	
-	<div class="line last-line">
-		<div class="unit size2of5">Total de horas <strong>trabalhadas</strong>: </div>
-		<div id="worked" class="unit lastUnit size3of5 information"></div> 
 	</div>
 	
 	<div id="legend">
@@ -121,7 +121,7 @@
 				</tr>
 				<tr>
 					<td class="weekend color">
-						<div class="commom_day"></div>
+						<div></div>
 					</td>
 					<td>Final de semana</td>
 				</tr>
@@ -148,8 +148,8 @@
 		</div>
 		
 		<div class="center">
- 				<input type="button" class="close" value="Fechar" />
- 			</div>
+			<input type="button" class="close" value="Fechar" />
+		</div>
 	</div>
 	
 	<div id="holidays" class="lightbox">

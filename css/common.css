@@ -1,6 +1,6 @@
 /* --------- Generic definitions ---------- */
 
-body, input{font:11px Verdana,Helvetica,sans-serif;color:#1c1d1d;}
+body, input{font:11px Arial,Verdana,Helvetica,sans-serif;color:#1c1d1d;}
 
 input[type=text], input[type=number]{
 	border:1px solid #8EAAB0;
@@ -31,12 +31,6 @@ h2{
 	font-weight:bold;
 }
 
-.last-line{
-	margin:0 20px 20px 0;
-	padding-bottom:10px;
-	border-bottom:1px dotted #ccc;
-}
-
 /* ------ Table definitions -----  */
 .main-info{width:60%;}
 
@@ -56,14 +50,16 @@ h2{
 	font-weight:bold;
 }
 
-#main-table tr{-webkit-transition: all .1s linear;}
 #main-table tr:hover{
 	background:#3875d7;
 	color:#fff;
 }
 
 #main-table .even{background:#edf3fe;}
-#main-table .weekend, #legend-table .weekend{opacity:.5;}
+#main-table .weekend, #legend-table .weekend{background:#f0f0f0;}
+#main-table .weekend:hover{
+	background:#738eac;
+}
 #main-table .holiday, #legend-table .holiday{background:#99c7de;}
 
 #main-table tr{border-bottom: 1px dotted #E7EBED;}
@@ -84,7 +80,7 @@ h2{
 }
 
 #main-table .view-full-obs.filled{
-	background:#DDE3EE;
+	background:#99c7de;
 }
 
 #box-obs{
@@ -119,14 +115,38 @@ h2{
 
 .general-information{width:40%;}
 
+.general-information .line div{
+	padding:5px 10px;
+}
+
+.general-information .line:hover div{
+	color:#3875d7;
+	-webkit-transition: all .2s linear;
+}
+
+.general-information .last-line{
+	margin:0 20px 20px 0;
+	padding-bottom:10px;
+	border-bottom:1px dotted #555;
+}
+
 .general-information div{
 	font-size:14px;
 	line-height:25px;
 }
 
+.general-information div.label{
+	width:130px;
+}
+
  .general-information div.information{
  	font-weight:bold;
- 	font-size:17px;
+ 	font-size:22px;
+ 	width:130px;
+ }
+ 
+ .general-information div.information.small{
+ 	font-size:15px;
  }
 
 #inputfile-import-data{
