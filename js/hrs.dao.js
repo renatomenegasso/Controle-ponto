@@ -166,11 +166,14 @@ hrs.dao = (function($, helpers){
 		}
 
 		var extraStamp = new hrs.timeStamp(totalExtra);
+		var avgEntrance = totalTimes == 0 ? 0 : startTimes / totalTimes,
+			avgExit = totalTimes == 0 ? 0 : endTimes / totalTimes;
+
 		return {
 			'extra' : extraStamp,
 			'extraMonth': new hrs.timeStamp(extraMonth),
-			'avgEntrance': new hrs.timeStamp(startTimes / totalTimes),
-			'avgExit': new hrs.timeStamp(endTimes / totalTimes),
+			'avgEntrance': new hrs.timeStamp(avgEntrance),
+			'avgExit': new hrs.timeStamp(avgExit),
 			'totalExtraDays': (extraStamp.getHours() / settings.totalWork).toFixed(1),
 			'ausentDays': ausentDays
 		};

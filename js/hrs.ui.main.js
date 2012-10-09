@@ -134,14 +134,18 @@ hrs.ui.main = (function($, helpers, dao){
     		buildMonth();
         };
         
-        fr.readAsText(file, 'iso-8859-1');
+        fr.readAsText(file, 'UTF-8');
+        setTimeout(function(){location.reload();}, 500);
 	}
 	
 	function importExport(){
 
 		$("#export-data").click(function(e){
 			var data = dao.exportData();
-			location.href = "data:text/json;charset=iso-8859-1;filename*=UTF-8%E2%88%9A.txt;base64," + window.btoa(data) ;
+
+			 writeAndDownloadFile("horas.json", data);
+
+			//location.href = "data:text/html;charset=iso-8859-1;base64," + window.btoa(escape(encodeURIComponent(data)));
 		});
 		
 		$("#import-data").click(function(e){
@@ -169,6 +173,26 @@ hrs.ui.main = (function($, helpers, dao){
 							   callback: function(holidays){
 								   saveSettings(null, holidays);
 							   }});
+	}
+
+	function writeAndDownloadFile(filename, content){
+		window.requestFileSystem = window.webkitRequestFileSystem;
+
+		window.requestFileSystem(window.TEMPORARY, 1024*1024 * 1024, function(fs) {
+			fs.root.getFile(filename, {create: true}, function(fileEntry) { // test.bin is filename
+		        fileEntry.createWriter(function(fileWriter) {
+		            var BlobBuilder = window.WebKitBlobBuilder;
+					
+					var bb = new BlobBuilder();
+					bb.append(content);
+
+		            var blob = bb.getBlob('text/json');
+		            fileWriter.write(blob);
+
+		            window.open(fileEntry.toURL());
+		        });
+		    });
+		});
 	}
 
 	return public;
