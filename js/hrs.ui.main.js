@@ -35,20 +35,36 @@ hrs.ui.main = (function($, helpers, dao){
 	}
 	
 	function updateInfo($row, rowData){
-		var totals = dao.calculateTotals(currentDate.getMonth());
+		var totals = dao.calculateTotals(currentDate.getMonth(), currentDate.getFullYear());
 		$("#extra").html(totals.extra.toString());
-		$("#worked").html(totals.total.toString());
 		$("#extra-month").html(totals.extraMonth.toString());
-		$("#total-month").html(totals.totalMonth.toString());
 		$("#month-name").html(helpers.dateTime.formatDate(currentDate, '#MM / #yyyy'));
 		
 		formatValue($("#extra"), totals.extra.toString());
 		formatValue($("#extra-month"), totals.extraMonth.toString());
 		
-		if(rowData == undefined)
-			return;
+		if(rowData != undefined){
+			formatValue($row.find('.total, .excedente'), rowData.excedente);
+		}
 		
-		formatValue($row.find('.total, .excedente'), rowData.excedente);
+		$("#entrance-avg").html(helpers.dateTime.formatDate(totals.avgEntrance, '#hh#m'));
+		$("#exit-avg").html(helpers.dateTime.formatDate(totals.avgExit, '#hh#m'));
+
+		if(totals.totalExtraDays >= 0){
+			$("#positive-days")
+				.show()
+				.find("#days-off").html(totals.totalExtraDays);
+
+			$("#negative-days").hide();
+		} else {
+			$("#negative-days")
+				.show()
+				.find("#days-to-pay").html(totals.totalExtraDays);
+				
+			$("#positive-days").hide();
+		}
+
+		$("#ausent-days").html(totals.ausentDays);
 	}
 	
 	function formatValue($target, value) {
@@ -157,3 +173,8 @@ hrs.ui.main = (function($, helpers, dao){
 
 	return public;
 })(jQuery, hrs.helpers, hrs.dao);
+
+
+$(function(){
+	hrs.ui.main.init($("#main-table"));
+})

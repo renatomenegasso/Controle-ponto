@@ -39,43 +39,40 @@ hrs.dao = (function($, helpers){
 
 		var info = $.evalJSON(localStorage.getItem(dateTime.getTime()));
 		
-		if(info == null){
-			return {entrada:'', saida:'', ida_almoco: '',  
-					volta_almoco: '', obs: '', 
-					holiday: getHoliday(dateTime), 
-					ausent: false};
-		}
-
-		info.entrada = toDate(info.entrada);
-		info.saida = toDate(info.saida);
-		
-		info.ida_almoco = toDate(info.ida_almoco);
-		info.volta_almoco = toDate(info.volta_almoco);
-		
-		info.holiday = getHoliday(dateTime);
-		
-		if(info.entrada != '' && info.saida != ''){
-			if(info.ida_almoco == '' && info.volta_almoco == ''){
-				getDefaultLunchInfo(dateTime, info);
-			} else if (info.ida_almoco != '' && info.volta_almoco != '') {
-				info.almoco = helpers.dateTime.getTimeDiff(info.volta_almoco, info.ida_almoco);
+		if(info != null){
+			info.entrada = toDate(info.entrada);
+			info.saida = toDate(info.saida);
+			
+			info.ida_almoco = toDate(info.ida_almoco);
+			info.volta_almoco = toDate(info.volta_almoco);
+			
+			info.holiday = getHoliday(dateTime);
+			
+			if(info.entrada != '' && info.saida != ''){
+				if(info.ida_almoco == '' && info.volta_almoco == ''){
+					getDefaultLunchInfo(dateTime, info);
+				} else if (info.ida_almoco != '' && info.volta_almoco != '') {
+					info.almoco = helpers.dateTime.getTimeDiff(info.volta_almoco, info.ida_almoco);
+				} else {
+					info.almoco = new hrs.timeStamp(settings.lunchTime * 60 * 60 * 1000);
+				}
+				
+				info.total = helpers.dateTime.getTimeDiff(info.saida, info.entrada);
+				info.total.removeTimeStamp(info.almoco);
+				
+				info.extra = info.total.clone().addHours(getTotalWork(dateTime, info.holiday != null) * -1);
 			} else {
-				info.almoco = new hrs.timeStamp(settings.lunchTime * 60 * 60 * 1000);
+				info.total = '';
+				info.extra = '';
 			}
 			
-			info.total = helpers.dateTime.getTimeDiff(info.saida, info.entrada);
-			info.total.removeTimeStamp(info.almoco);
+			if(info.obs == undefined)
+				info.obs = "";
 			
-			info.extra = info.total.clone().addHours(getTotalWork(dateTime, info.holiday != null) * -1);
-		} else {
-			info.total = '';
-			info.extra = '';
+			return info;
 		}
 		
-		if(info.obs == undefined)
-			info.obs = "";
-		
-		return info;
+		return {entrada:'', saida:'', ida_almoco: '',  volta_almoco: '', obs: '', holiday: getHoliday(dateTime), ausent: false};
 	};
 	
 	public.storeDate = function(dateTime, data){
@@ -118,70 +115,57 @@ hrs.dao = (function($, helpers){
 		for(var i = 0; i < settings.holidays.length; i ++){
 			var holiday = settings.holidays[i].date.split('/');
 
-			if(date.getDate() == parseInt(holiday[0], 10) && date.getMonth() + 1 == parseInt(holiday[1], 10))
+			if(date.getDate() == parseInt(holiday[0]) && date.getMonth() + 1 == parseInt(holiday[1]))
 				return settings.holidays[i];
 		}
 		
 		return null;
 	}
 	
-	public.calculateTotals = function(month, year){
+	public.calculateTotals = function(month){
 		var totalExtra = 0,
+			totalTime = 0,
 			extraMonth = 0,
-			ausentDays = 0;
+			totalMonth = 0;
 		
-		var startTimes = 0,
-			endTimes = 0,
-			totalTimes = 0;
-
 		for(var k in localStorage){
 			if(isNaN(k))
 				continue;
 
-			var dt = new Date(parseInt(k)),
-				info = public.getDateInfo(k);
+			var dt = new Date(parseInt(k));
+
+			var info = public.getDateInfo(k);
 			
 			if(info.ausent){
 				var totalDay = getTotalWork(dt, info.holiday != null) * 60 * 60 * 1000;
-				if(dt.getMonth() == month && dt.getFullYear() == year){
+				if(dt.getMonth() == month){
 					extraMonth -= totalDay;
+					totalMonth -= totalDay;
 				}
 				
+				totalTime -= totalDay;
 				totalExtra -= totalDay;
-				ausentDays ++;
 				continue;
 			}
 			
 			if(info.total == "") continue;
 			
-			if(info.entrada.getMonth() == month && info.entrada.getFullYear() == year){
+			if(info.entrada.getMonth() == month){
 				extraMonth += info.extra.getTime();
+				totalMonth += info.total.getTime();
 			}
 			
-			startTimes += toMilis(info.entrada);
-			endTimes += toMilis(info.saida);
-			totalTimes ++;
-
+			totalTime += info.total.getTime();
 			totalExtra += info.extra.getTime();
 		}
-
-		var extraStamp = new hrs.timeStamp(totalExtra);
+		
 		return {
-			'extra' : extraStamp,
+			'extra' : new hrs.timeStamp(totalExtra),
 			'extraMonth': new hrs.timeStamp(extraMonth),
-			'avgEntrance': new hrs.timeStamp(startTimes / totalTimes),
-			'avgExit': new hrs.timeStamp(endTimes / totalTimes),
-			'totalExtraDays': (extraStamp.getHours() / settings.totalWork).toFixed(1),
-			'ausentDays': ausentDays
+			'total' : new hrs.timeStamp(totalTime),
+			'totalMonth' : new hrs.timeStamp(totalMonth)
 		};
 	};
-
-	function toMilis(dt){
-		return dt.getMilliseconds()
-				+ dt.getSeconds() * 1000
-				+ dt.getMinutes() * 1000 * 60
-				+ dt.getHours() * 1000 * 60 * 60;
-	}
 	
 	public.exportData = function(){
 		return $.toJSON(localStorage);

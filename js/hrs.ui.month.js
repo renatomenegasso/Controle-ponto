@@ -72,7 +72,7 @@ hrs.ui.month = function(month, year) {
 		var $row = $(e.target).closest('tr');
 		var rowDate = new Date(parseInt($row.attr('id')));
 		var isAusent =  $row.find('.ausent')[0].checked;
-		
+
 		_dao.storeDate(rowDate, {
 			entrada: _dateHelpers.parseDateTime($row.find('.start').val(), rowDate),
 			ida_almoco: _dateHelpers.parseDateTime($row.find('.lunch-start').val(), rowDate),
@@ -161,10 +161,15 @@ hrs.ui.month = function(month, year) {
 		
 		$target.find('tr:not(.fixed-row)').remove();
 		while(date.getMonth() == month) {
+			var actual = date.getDate();
 			_buildRow(date, $target, $tmpl);
-			var prev = date.getDate();
-			date.setDate(prev + 1);
-			//if(date.getDate())
+
+			date.setDate(actual + 1);
+
+			//existe um bug que, ao adicionar um dia no dia 20/10, ele continua no dia 20/10, por isso soma-se mais um
+			if(date.getDate() == actual){
+				date.setDate(date.getDate() + 1);
+			}
 		}
 		
 		$('#box-obs .close-obs').click(hideBoxObs);

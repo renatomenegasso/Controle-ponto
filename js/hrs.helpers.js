@@ -35,9 +35,9 @@ hrs.helpers.dateTime = (function(helpers){
 					     MM: date['getMonth'] != undefined ? months[date.getMonth()] : '',
 						 M: date['getMonth'] != undefined ? number.addZeros(date.getMonth() + 1, 2) : '',
 						 yyyy: date['getFullYear'] != undefined ? number.addZeros(date.getFullYear(), 2) : '',
-						 h: number.addZeros(Math.abs(date.getHours()), 2),
-						 m: number.addZeros(Math.abs(date.getMinutes()), 2),
-						 s: number.addZeros(Math.abs(date.getSeconds()), 2) };
+						 h: number.addZeros(Math.round(Math.abs(date.getHours())), 2),
+						 m: number.addZeros(Math.round(Math.abs(date.getMinutes())), 2),
+						 s: number.addZeros(Math.round(Math.abs(date.getSeconds())), 2) };
 		
 		var result = format;
 		
