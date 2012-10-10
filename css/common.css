@@ -17,23 +17,27 @@ input[type=text], input[type=number], textarea{
 	border-radius:3px;
 }
 
-input[type=button]{
+input[type=button], .button{
 	border:1px solid #5c5c5c;
 	border-radius:5px;
 	padding:3px 12px;
 	font-weight:bold;
+	display:inline-block;
+	color:#000;
+	font-size: 13px;
+	text-decoration: none;
 	box-shadow: 0px 1px 5px rgba(68,68,68,0.6);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(48%,#eeeeee), color-stop(50%,#e0e0e0), color-stop(100%,#ffffff));
 	-webkit-transition: all .2s linear;
 }
 
-input[type=button]:hover{
+input[type=button]:hover, .button:hover{
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#badaf8), color-stop(48%,#79b9f4), color-stop(50%,#5fa1e8), color-stop(100%,#d3ffff));
 	border:1px solid #4779cf;
 	box-shadow: 0px 0px 20px rgba(121,185,244,0.8);
 }
 
-input[type=button]:active{
+input[type=button]:active, .button:active{
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d3ffff), color-stop(48%,#5fa1e8), color-stop(50%,#79b9f4), color-stop(100%,#badaf8));
 }
 
@@ -78,7 +82,8 @@ h2{
 }
 
 #header li, #menu li{
-	display:inline-block;
+	display:block;
+	float:left;
 	text-align: center;
 }
 
@@ -102,15 +107,15 @@ h2{
 .begin-day{width:108px;}
 .day_date{width:52px;}
 .day_week{width:50px;}
-.start{width:70px;}
-.start-lunch{width:78px;}
-.end-lunch{width:92px;}
+.begin-day{width:105px;}
+.start-lunch{width:80px;}
+.end-lunch{width:91px;}
 .end-day{width:74px;}
 .all-worked{width:60px;}
 .lunch{width:57px;}
 .extra{width:73px;}
 .note{width:35px;}
-.is-ausent{width:86px;}
+.is-ausent{width:89px;}
 
 #fixed-bar li a:hover{background:#525252;}
 

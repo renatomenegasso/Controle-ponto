@@ -29,7 +29,7 @@
 	<div id="fixed-bar">
 		<ul id="header">
 			<li class="begin-day">Dia</li>
-			<li class="start">Entrada</li>
+			<li class="begin-day">Entrada</li>
 			<li class="start-lunch">Ida almoço</li>
 			<li class="end-lunch">Volta almoço</li>
 			<li class="end-day">Saída</li>
@@ -43,7 +43,7 @@
 		<ul id="menu">
 			<li> <a href="#configuration" class="open-lightbox">Configurações</a> </li>
 			<li> <a href="#holidays" class="open-lightbox">Feriados cadastrados</a> </li>
-			<li> <a href="#confirm-export" class="open-lightbox">Exportar dados</a> </li>
+			<li> <a href="#confirm-export" id="link-export" class="open-lightbox">Exportar dados</a> </li>
 			<li> <a href="#import-data" id="import-data" class="last">Importar dados</a> </li>
 		</ul>
 	</div>
@@ -205,11 +205,11 @@
 			<h2>Exportar dados</h2>
 			<a href="#close" class="close close-button">x</a>
 			
-			Deseja exportar os dados ? Será criado um arquivo 'download' na sua pasta de downloads, que pode ser importado a qualquer momento.
+			Deseja exportar os dados ? Será exportado um arquivo no formado json, que pode ser re-importado novamente.
 			
 			<div class="center">
-				<input type="button" id="export-data" class="close center" value="Confirmar" />
-				<input type="button" class="close center" value="Cancelar" />
+				<a href="" target="_blank" id="export-data" class="close center button">Download</a>
+				<a href="#close" class="close center button">Cancelar</a>
 			</div>
 		</div>
 		

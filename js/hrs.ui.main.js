@@ -98,8 +98,6 @@ hrs.ui.main = (function($, helpers, dao){
 		});
 		
 		$('.lightbox .close').click(function(e){
-			e.preventDefault();
-			lightboxIndex --;
 			$(this).closest('.lightbox').fadeOut().css('z-index', 'auto');
 		});
 	}
@@ -140,14 +138,6 @@ hrs.ui.main = (function($, helpers, dao){
 	
 	function importExport(){
 
-		$("#export-data").click(function(e){
-			var data = dao.exportData();
-
-			 writeAndDownloadFile("horas.json", data);
-
-			//location.href = "data:text/html;charset=iso-8859-1;base64," + window.btoa(escape(encodeURIComponent(data)));
-		});
-		
 		$("#import-data").click(function(e){
 			$("#inputfile-import-data").click();
 		});
@@ -155,6 +145,10 @@ hrs.ui.main = (function($, helpers, dao){
 		$('#proced-import').click(function(){
 			saveImportedData($("#confirm-import")[0].file);
 		});
+
+		$("#link-export").click(function(e){
+			writeAndDownloadFile("horas.json", dao.exportData(), $("#export-data"));
+		})
 		
 		$("#inputfile-import-data").change(function(e){
 			var files = e.target.files;
@@ -175,11 +169,11 @@ hrs.ui.main = (function($, helpers, dao){
 							   }});
 	}
 
-	function writeAndDownloadFile(filename, content){
+	function writeAndDownloadFile(filename, content, $link){
 		window.requestFileSystem = window.webkitRequestFileSystem;
 
-		window.requestFileSystem(window.TEMPORARY, 1024*1024 * 1024, function(fs) {
-			fs.root.getFile(filename, {create: true}, function(fileEntry) { // test.bin is filename
+		window.requestFileSystem(window.TEMPORARY, 1024*1024*1024, function(fs) {
+			fs.root.getFile(filename, {create: true}, function(fileEntry) {
 		        fileEntry.createWriter(function(fileWriter) {
 		            var BlobBuilder = window.WebKitBlobBuilder;
 					
@@ -189,7 +183,7 @@ hrs.ui.main = (function($, helpers, dao){
 		            var blob = bb.getBlob('text/json');
 		            fileWriter.write(blob);
 
-		            window.open(fileEntry.toURL());
+		            $link.attr('href', fileEntry.toURL());
 		        });
 		    });
 		});
