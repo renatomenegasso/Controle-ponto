@@ -1,3 +1,12 @@
+/* ------------- fonts ------------- */
+
+@font-face {
+  font-family: 'Dosis';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Dosis Regular'), local('Dosis-Regular'), url(../res/fonts/dosis.woff) format('woff');
+}
+
 /* --------- Generic definitions ---------- */
 
 body, input{
