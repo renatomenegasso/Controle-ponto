@@ -113,36 +113,32 @@ h2{
 	-webkit-transition: all .4s linear;
 }
 
-.begin-day{width:108px;}
+.date{width:103px;}
 .day_date{width:52px;}
 .day_week{width:50px;}
-.begin-day{width:105px;}
-.start-lunch{width:80px;}
+
+.begin-day{width:78px;}
+.start-lunch{width:73px;}
 .end-lunch{width:91px;}
 .end-day{width:74px;}
+.vpn-cell{width:55px;}
 .all-worked{width:60px;}
 .lunch{width:57px;}
 .extra{width:73px;}
 .note{width:35px;}
-.is-ausent{width:89px;}
+.is-ausent{width:85px;}
 
 #fixed-bar li a:hover{background:#525252;}
 
 /* ------ Table definitions -----  */
 
+#printable-header,
 #row-template{display:none;}
 
 #main-table{
 	border-collapse:collapse;
 	border-spacing: 0;
-	width:780px;
-}
-
-#main-table th{
-	background:#191D26;
-	color:#fff;
-	padding:5px;
-	font-weight:bold;
+	width:795px;
 }
 
 #main-table tr:hover{
@@ -173,7 +169,7 @@ h2{
 	text-align: center;
 }
 
-#main-table input.obs{width:110px;}
+#main-table .obs{display:none;}
 
 #main-table .view-full-obs{
 	display:block;

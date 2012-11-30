@@ -25,6 +25,7 @@ hrs.ui.month = function(month, year) {
 			ida_almoco: _dateHelpers.formatDate(dateInfo.ida_almoco, '#h:#m'),
 			volta_almoco: _dateHelpers.formatDate(dateInfo.volta_almoco, '#h:#m'),
 			saida: _dateHelpers.formatDate(dateInfo.saida, '#h:#m'),
+			vpn: _dateHelpers.formatDate(dateInfo.vpn, '#h:#m'),
 			total: _handleUndefinedDate(dateInfo.total),
 			almoco: _handleUndefinedDate(dateInfo.almoco),
 			excedente: _handleUndefinedDate(dateInfo.extra),
@@ -62,7 +63,7 @@ hrs.ui.month = function(month, year) {
 		}
 		
 		var $rowContent = $(rowContent);
-		$rowContent.find('input,textarea').change(changeEvent).filter(':not(.obs)').blur(blurEvent);
+		$rowContent.find('input,textarea, .obs').change(changeEvent).blur(blurEvent);
 		$rowContent.find('.view-full-obs').click(showFullObs);
 		
 		$target.append($rowContent);
@@ -78,7 +79,8 @@ hrs.ui.month = function(month, year) {
 			ida_almoco: _dateHelpers.parseDateTime($row.find('.lunch-start').val(), rowDate),
 			volta_almoco: _dateHelpers.parseDateTime($row.find('.lunch-end').val(), rowDate),
 			saida: _dateHelpers.parseDateTime($row.find('.end').val(), rowDate),
-			obs: $row.find('.obs').val(),
+			vpn: _dateHelpers.parseDateTime($row.find('.vpn').val(), rowDate),
+			obs: $row.find('.obs').text(),
 			ausent: isAusent
 		});
 		
@@ -138,7 +140,7 @@ hrs.ui.month = function(month, year) {
 		var value = $boxObs.find('textarea').val(); 
 		
 		$boxObs[0].refInput 
-			.val(value)
+			.html(value)
 			.trigger('change')
 			.parents('.obs_cell')
 			.find('.view-full-obs')

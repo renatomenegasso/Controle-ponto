@@ -18,6 +18,7 @@ hrs.ui.main = (function($, helpers, dao){
 		monthInformation();
 		importExport();
 		holidays();
+		exportPdf();
 	};
 	
 	function buildMonth(){
@@ -167,6 +168,13 @@ hrs.ui.main = (function($, helpers, dao){
 							   callback: function(holidays){
 								   saveSettings(null, holidays);
 							   }});
+	}
+
+	function exportPdf(){
+		$("a.export-pdf").click(function(e){
+			e.preventDefault();
+			window.print();
+		});
 	}
 
 	function writeAndDownloadFile(filename, content, $link){

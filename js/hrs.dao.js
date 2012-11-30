@@ -43,14 +43,16 @@ hrs.dao = (function($, helpers){
 			return {entrada:'', saida:'', ida_almoco: '',  
 					volta_almoco: '', obs: '', 
 					holiday: getHoliday(dateTime), 
+					vpn: '',
 					ausent: false};
 		}
 
 		info.entrada = toDate(info.entrada);
 		info.saida = toDate(info.saida);
-		
+	
 		info.ida_almoco = toDate(info.ida_almoco);
 		info.volta_almoco = toDate(info.volta_almoco);
+		info.vpn = toDate(info.vpn);
 		
 		info.holiday = getHoliday(dateTime);
 		

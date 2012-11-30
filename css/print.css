@@ -1,0 +1,22 @@
+#fixed-bar{display:none;}
+#printable-header{display:table-row;}
+
+.general-information{
+	width:100%;
+	margin-bottom:20px;
+}
+
+.general-information .last-line{border-bottom: none;}
+
+.general-information .month-buttons{display:none;}
+
+#legend, #aditional-information{display:none;}
+
+#main-table{width:1050px;}
+#main-table td, #main-table th{border-bottom: 1px solid #000;}
+#main-table input{border:none;}
+#main-table .obs{display:block;}
+#main-table .obs_cell{border-right: none;}
+#main-table .note{width:180px;}
+
+.is-ausent{display:none;}
