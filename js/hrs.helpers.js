@@ -61,7 +61,6 @@ hrs.helpers.dateTime = (function(helpers){
 		if(arrTime.length == 1)
 			arrTime.push(0);
 		
-		
 		return new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), arrTime[0], arrTime[1]);
 	};
 	

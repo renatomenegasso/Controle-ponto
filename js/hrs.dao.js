@@ -52,8 +52,12 @@ hrs.dao = (function($, helpers){
 	
 		info.ida_almoco = toDate(info.ida_almoco);
 		info.volta_almoco = toDate(info.volta_almoco);
+
+		info.vpnExtra  = parseInt(info.vpn);
+		info.vpnExtra = isNaN(info.vpnExtra) ? 0 : info.vpnExtra - dateTime;
+
 		info.vpn = toDate(info.vpn);
-		
+
 		info.holiday = getHoliday(dateTime);
 		
 		if(info.entrada != '' && info.saida != ''){
@@ -66,12 +70,14 @@ hrs.dao = (function($, helpers){
 			}
 			
 			info.total = helpers.dateTime.getTimeDiff(info.saida, info.entrada);
+			info.total.addTimeStamp(info.vpnExtra);
 			info.total.removeTimeStamp(info.almoco);
 			
+
 			info.extra = info.total.clone().addHours(getTotalWork(dateTime, info.holiday != null) * -1);
 		} else {
-			info.total = '';
-			info.extra = '';
+			info.extra = 
+			info.total = (info.vpn != '') ? new hrs.timeStamp(info.vpnExtra) : '';
 		}
 		
 		if(info.obs == undefined)
@@ -85,6 +91,7 @@ hrs.dao = (function($, helpers){
 		data.ida_almoco = (typeof(data.ida_almoco) != 'undefined') ? data.ida_almoco.getTime() : '';
 		data.volta_almoco = (typeof(data.volta_almoco) != 'undefined') ? data.volta_almoco.getTime() : '';
 		data.saida = (typeof(data.saida) != 'undefined') ? data.saida.getTime() : '';
+		data.vpn = (typeof(data.vpn) != 'vpn') ? data.vpn.getTime() : '';
 		
 		localStorage.setItem(dateTime.getTime(), $.toJSON(data));
 	};
@@ -155,13 +162,16 @@ hrs.dao = (function($, helpers){
 			}
 			
 			if(info.total == "") continue;
-			
-			if(info.entrada.getMonth() == month && info.entrada.getFullYear() == year){
+
+			if( isDateOfMonth(info.entrada, month, year) || isDateOfMonth(info.vpn, month, year) ){
 				extraMonth += info.extra.getTime();
 			}
 			
-			startTimes += toMilis(info.entrada);
-			endTimes += toMilis(info.saida);
+			if(info.entrada != "")			
+				startTimes += toMilis(info.entrada);
+			if(info.saida != "")
+				endTimes += toMilis(info.saida);
+
 			totalTimes ++;
 
 			totalExtra += info.extra.getTime();
@@ -180,6 +190,13 @@ hrs.dao = (function($, helpers){
 			'ausentDays': ausentDays
 		};
 	};
+
+	function isDateOfMonth(date, month, year){
+		return date
+				&& date != ""
+				&& date.getMonth() == month 
+				&& date.getFullYear() == year;
+	}
 
 	function toMilis(dt){
 		return dt.getMilliseconds()

@@ -12,7 +12,7 @@ hrs.timeStamp = function(milis){
 	public.getTime = function(){ return miliSeconds; };
 	
 	public.addTimeStamp = function(timeStamp){
-		miliSeconds += timeStamp.getTime();
+		miliSeconds += (typeof timeStamp == "number") ? timeStamp : timeStamp.getTime();
 		calculate();
 	};
 	
