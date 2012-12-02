@@ -77,8 +77,9 @@ hrs.ui.main = (function($, helpers, dao){
 	
 	function settings(){
 		var settings = dao.loadSettings();
-		$("#total-work").val(settings.totalWork).click(saveSettings);
-		$("#lunch-time").val(settings.lunchTime).click(saveSettings);
+		$("#total-work").val(settings.totalWork).change(saveSettings);
+		$("#lunch-time").val(settings.lunchTime).change(saveSettings);
+		$("#initial-balance").val(settings.initialBalance).change(saveSettings);
 	}
 	
 	function openLightbox(id){
@@ -107,6 +108,7 @@ hrs.ui.main = (function($, helpers, dao){
 		dao.saveSettings({
 			'totalWork': $("#total-work").val(),
 			'lunchTime': $("#lunch-time").val(),
+			'initialBalance': $("#initial-balance").val(),
 			'holidays': holidays || hrs.ui.holidays.getHolidays()
 		});
 

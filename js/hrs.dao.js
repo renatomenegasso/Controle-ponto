@@ -106,11 +106,12 @@ hrs.dao = (function($, helpers){
 		var savedSettings = localStorage.getItem(SETTINGS_KEY);
 
 		if(savedSettings == null || savedSettings == "")
-			return {totalWork: 8, lunchTime: 1, holidays: []};
+			return {totalWork: 8, lunchTime: 1, holidays: [], initialBalance: 0};
 		
 		savedSettings = $.evalJSON(savedSettings);
 		savedSettings.lunchTime = parseFloat(savedSettings.lunchTime);
 		savedSettings.totalWork = parseFloat(savedSettings.totalWork);
+		savedSettings.initialBalance = parseFloat(savedSettings.initialBalance);
 		
 		return savedSettings; 
 	};
@@ -142,6 +143,10 @@ hrs.dao = (function($, helpers){
 		var startTimes = 0,
 			endTimes = 0,
 			totalTimes = 0;
+
+		if(settings.initialBalance){
+			totalExtra = settings.initialBalance * 60 * 60 * 1000;
+		}
 
 		for(var k in localStorage){
 			if(isNaN(k))
