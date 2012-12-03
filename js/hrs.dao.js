@@ -91,7 +91,7 @@ hrs.dao = (function($, helpers){
 		data.ida_almoco = (typeof(data.ida_almoco) != 'undefined') ? data.ida_almoco.getTime() : '';
 		data.volta_almoco = (typeof(data.volta_almoco) != 'undefined') ? data.volta_almoco.getTime() : '';
 		data.saida = (typeof(data.saida) != 'undefined') ? data.saida.getTime() : '';
-		data.vpn = (typeof(data.vpn) != 'vpn') ? data.vpn.getTime() : '';
+		data.vpn = (typeof(data.vpn) != 'undefined') ? data.vpn.getTime() : '';
 		
 		localStorage.setItem(dateTime.getTime(), $.toJSON(data));
 	};
