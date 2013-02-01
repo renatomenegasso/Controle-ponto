@@ -141,6 +141,14 @@ hrs.ui.main = (function($, helpers, dao){
 	
 	function importExport(){
 
+		$("#link-export").click(function(){
+			$("#output-export").val(dao.exportData())[0].select();
+		});
+
+		$("#output-export").click(function(){
+			this.select();
+		})
+
 		$("#import-data").click(function(e){
 			$("#inputfile-import-data").click();
 		});
@@ -149,10 +157,6 @@ hrs.ui.main = (function($, helpers, dao){
 			saveImportedData($("#confirm-import")[0].file);
 		});
 
-		$("#link-export").click(function(e){
-			writeAndDownloadFile("horas.json", dao.exportData(), $("#export-data"));
-		})
-		
 		$("#inputfile-import-data").change(function(e){
 			var files = e.target.files;
 			
@@ -176,26 +180,6 @@ hrs.ui.main = (function($, helpers, dao){
 		$("a.export-pdf").click(function(e){
 			e.preventDefault();
 			window.print();
-		});
-	}
-
-	function writeAndDownloadFile(filename, content, $link){
-		window.requestFileSystem = window.webkitRequestFileSystem;
-
-		window.requestFileSystem(window.TEMPORARY, 1024*1024*1024, function(fs) {
-			fs.root.getFile(filename, {create: true}, function(fileEntry) {
-		        fileEntry.createWriter(function(fileWriter) {
-		            var BlobBuilder = window.WebKitBlobBuilder;
-					
-					var bb = new BlobBuilder();
-					bb.append(content);
-
-		            var blob = bb.getBlob('text/json');
-		            fileWriter.write(blob);
-
-		            $link.attr('href', fileEntry.toURL());
-		        });
-		    });
 		});
 	}
 

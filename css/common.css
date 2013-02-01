@@ -131,6 +131,11 @@ h2{
 
 #fixed-bar li a:hover{background:#525252;}
 
+#output-export{
+	height: 100px; 
+	width: 450px;
+}
+
 /* ------ Table definitions -----  */
 
 #printable-header,

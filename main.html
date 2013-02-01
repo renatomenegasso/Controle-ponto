@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/common.css" />
 	<link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
 
-	<script src="libs/jquery.1.6.4.min.js"></script>
+	<script src="libs/jquery-1.9.0.min.js"></script>
 	<script src="libs/jquery.json-2.3.min.js"></script>
 	<script src="libs/jquery.maskedinput-1.3.js"></script>
 	<script src="js/extensions.js"></script>
@@ -45,7 +45,7 @@
 			<li> <a href="#export-pdf" class="export-pdf">PDF</a> </li>
 			<li> <a href="#configuration" class="open-lightbox">Configurações</a> </li>
 			<li> <a href="#holidays" class="open-lightbox">Feriados</a> </li>
-			<li> <a href="#confirm-export" id="link-export" class="open-lightbox">Exportar</a> </li>
+			<li> <a href="#export" id="link-export" class="open-lightbox">Exportar</a> </li>
 			<li> <a href="#import-data" id="import-data" class="last">Importar</a> </li>
 		</ul>
 	</div>
@@ -223,16 +223,14 @@
 		</div>
 	</div>
 	
-	<div id="confirm-export" class="lightbox">
+	<div id="export" class="lightbox">
 		<h2>Exportar dados</h2>
 		<a href="#close" class="close close-button">x</a>
 		
-		Deseja exportar os dados ? Será exportado um arquivo no formado json, que pode ser re-importado novamente.
+		Salve o conteúdo abaixo em um arquivo, que pode ser reimportado novamente.
 		
-		<div class="center">
-			<a href="" target="_blank" id="export-data" class="close center button">Download</a>
-			<a href="#close" class="close center button">Cancelar</a>
-		</div>
+		<textarea id="output-export"></textarea>
+
 	</div>
 	
 	<div id="confirm-import" class="lightbox">
