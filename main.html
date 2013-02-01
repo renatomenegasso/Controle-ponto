@@ -157,7 +157,7 @@
 				<td class="begin-day"><input type="text" value="{entrada}" class="start" /></td>
 				<td class="start-lunch"><input type="text" value="{ida_almoco}" class="lunch-start" /></td>
 				<td class="end-lunch"><input type="text" value="{volta_almoco}" class="lunch-end" /></td>
-				<td class="end-day"><input type="text" value="{saida}" class="end" /></td>
+				<td class="end-day"><input type="text" value="{saida}" class="end" placeholder="{expectedExit}" /></td>
 				<td class="vpn-cell"><input type="text" value="{vpn}" class="vpn" /></td>
 				<td class="total all-worked">{total}</td>
 				<td class="almoco lunch">{almoco}</td>
@@ -244,6 +244,11 @@
 			<input type="button" class="close center" value="Cancelar" />
 		</div>
 	</div> 
+
+	<ul id="input-context-menu" class="context-menu">
+		<li id="insert-current-time">Inserir hora atual</li>
+		<li>Cancelar</li>
+	</ul>
 </div>
 
 </body>

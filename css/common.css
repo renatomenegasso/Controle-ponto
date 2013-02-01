@@ -343,3 +343,28 @@ h2{
 	width:0px;
 	height:0px;
 }
+
+
+/* --- context menu --- */
+
+.context-menu{
+	list-style-type: none;
+	background:#444;
+	color:#fff;
+	width:200px;
+	margin:0;
+	padding:0;
+	position:absolute;
+	border-radius: 3px;
+	display:none;
+}
+
+.context-menu li{
+	padding:4px 30px 4px 10px;
+	cursor:pointer;
+	-webkit-transition: all .2s linear;
+}
+
+.context-menu li:hover{
+	background:#555;
+}

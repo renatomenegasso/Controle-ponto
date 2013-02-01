@@ -60,20 +60,22 @@ hrs.dao = (function($, helpers){
 
 		info.holiday = getHoliday(dateTime);
 		
+		if (info.ida_almoco != '' && info.volta_almoco != '') {
+			info.almoco = helpers.dateTime.getTimeDiff(info.volta_almoco, info.ida_almoco);
+		} else {
+			info.almoco = new hrs.timeStamp(settings.lunchTime * 60 * 60 * 1000);
+		}
+
 		if(info.entrada != '' && info.saida != ''){
+
 			if(info.ida_almoco == '' && info.volta_almoco == ''){
 				getDefaultLunchInfo(dateTime, info);
-			} else if (info.ida_almoco != '' && info.volta_almoco != '') {
-				info.almoco = helpers.dateTime.getTimeDiff(info.volta_almoco, info.ida_almoco);
-			} else {
-				info.almoco = new hrs.timeStamp(settings.lunchTime * 60 * 60 * 1000);
 			}
-			
+
 			info.total = helpers.dateTime.getTimeDiff(info.saida, info.entrada);
 			info.total.addTimeStamp(info.vpnExtra);
 			info.total.removeTimeStamp(info.almoco);
 			
-
 			info.extra = info.total.clone().addHours(getTotalWork(dateTime, info.holiday != null) * -1);
 		} else {
 			info.extra = 
