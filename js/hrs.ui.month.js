@@ -240,7 +240,7 @@ hrs.ui.month.static = (function(){
 	function contextMenu(){
 		$(document).on('mousedown', '#insert-current-time', function(e){
 			var dt = new Date();
-			$(document.activeElement).val(dt.getHours() + ':' + dt.getMinutes());
+			$(document.activeElement).val(dt.getHours() + ':' + dt.getMinutes()).trigger('change');
 		});
 	}
 
