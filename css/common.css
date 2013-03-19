@@ -324,6 +324,12 @@ h2{
 }
 
 
+#configuration .utilDays ul{
+	clear:both;
+	list-style-type: none;
+	padding-left:15px;
+}
+
 /* ---------- Legend ----------  */
 #legend .color{
 	width:22px;

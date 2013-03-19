@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Controle de banco de horas",
   "description": "Aplicativo utilizado para controle de banco de horas",
-  "version": "1.3.0.1",
+  "version": "1.4",
   "app": {
     "launch": {
       "local_path": "main.html"

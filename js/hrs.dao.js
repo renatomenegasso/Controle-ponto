@@ -105,15 +105,17 @@ hrs.dao = (function($, helpers){
 	};
 	
 	public.loadSettings = function(){ 
-		var savedSettings = localStorage.getItem(SETTINGS_KEY);
+		var savedSettings = localStorage.getItem(SETTINGS_KEY),
+			defaultUtilDays = ['1','2','3','4','5'];
 
 		if(savedSettings == null || savedSettings == "")
-			return {totalWork: 8, lunchTime: 1, holidays: [], initialBalance: 0};
+			return {totalWork: 8, lunchTime: 1, holidays: [], initialBalance: 0, utilDays:defaultUtilDays};
 		
 		savedSettings = $.evalJSON(savedSettings);
 		savedSettings.lunchTime = parseFloat(savedSettings.lunchTime);
 		savedSettings.totalWork = parseFloat(savedSettings.totalWork);
 		savedSettings.initialBalance = parseFloat(savedSettings.initialBalance);
+		savedSettings.utilDays =  savedSettings.utilDays || defaultUtilDays;
 		
 		return savedSettings; 
 	};
@@ -121,9 +123,13 @@ hrs.dao = (function($, helpers){
 	public.getHolidays = function(){
 		return settings.holidays;
 	};
+
+	function isUtilDay(date){
+		return settings.utilDays.indexOf(date.getDay().toString()) > -1;
+	}
 	
 	function getTotalWork(date, isHoliday){
-		return (helpers.dateTime.isWeekend(date) || isHoliday) ? 0 : settings.totalWork;
+		return (!isUtilDay(date) || isHoliday) ? 0 : settings.totalWork;
 	}
 	
 	function getHoliday(date){

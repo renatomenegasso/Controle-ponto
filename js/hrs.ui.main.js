@@ -80,6 +80,13 @@ hrs.ui.main = (function($, helpers, dao){
 		$("#total-work").val(settings.totalWork).change(saveSettings);
 		$("#lunch-time").val(settings.lunchTime).change(saveSettings);
 		$("#initial-balance").val(settings.initialBalance).change(saveSettings);
+
+		var $utilDaysChecks = $("div.utilDays input:checkbox");
+		for(var i = 0; i < settings.utilDays.length; i ++){
+			$utilDaysChecks.filter('[value=' + settings.utilDays[i] + ']').attr('checked', 'checked');
+		}
+
+		$utilDaysChecks.change(saveSettings);
 	}
 	
 	function openLightbox(id){
@@ -105,11 +112,19 @@ hrs.ui.main = (function($, helpers, dao){
 	}
 	
 	function saveSettings(e, holidays){
+
+		var utilDaysChecked = [];
+
+		$("input.utilDay:checked").each(function(){
+			utilDaysChecked.push(this.value);
+		});
+
 		dao.saveSettings({
 			'totalWork': $("#total-work").val(),
 			'lunchTime': $("#lunch-time").val(),
 			'initialBalance': $("#initial-balance").val(),
-			'holidays': holidays || hrs.ui.holidays.getHolidays()
+			'holidays': holidays || hrs.ui.holidays.getHolidays(),
+			'utilDays': utilDaysChecked
 		});
 
 		buildMonth();
