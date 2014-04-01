@@ -7,11 +7,12 @@ function show() {
 
   var baseDate = new Date();
   var time = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate()).getTime();
+  var timeNow = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(),baseDate.getHours(),baseDate.getMinutes(),0);
+
   var storageDay = localStorage.getItem(time);
       storageDay = jQuery.parseJSON(storageDay);
 
-
-  if (baseDate.getTime() == storageDay["saida"]){
+  if (timeNow.getTime() == storageDay["saida"]){
     var notification = window.webkitNotifications.createNotification(
       'res/icon_128.png',                                     // The image.
       baseDate.getHours()+":"+baseDate.getMinutes(),          // The title.
