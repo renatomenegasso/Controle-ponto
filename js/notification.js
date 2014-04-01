@@ -40,7 +40,7 @@ function show() {
   var baseDate = new Date();
   var notificationHour = baseDate.getHours()+":"+baseDate.getMinutes();
 
-  // for test fixe one hour; Example: notificationHour="17:13";
+  // for test fix one hour; Example: notificationHour="17:13";
 
   var endDay = loadEndDay();
 
