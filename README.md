@@ -4,7 +4,9 @@
 
 > Chrome app
 
-Instalar:[Controle de ponto!](https://chrome.google.com/webstore/category/apps?hl=pt-BR)
+Instalar: [Controle de banco de horas](https://chrome.google.com/webstore/detail/controle-de-banco-de-hora/pfifkcaekcnananahibcebeeknnlfhna?hl=pt-BR) :clock10:
 
 ![](https://raw.github.com/samuelteixeiras/Controle-ponto/master/res/img/image-example.png)
                        
+Autor: Renato Herculano Menegasso
+[https://github.com/renatomenegasso](https://github.com/renatomenegasso)
