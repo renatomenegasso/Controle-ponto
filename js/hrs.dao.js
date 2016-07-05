@@ -62,8 +62,6 @@ hrs.dao = (function($, helpers){
 		
 		if (info.ida_almoco != '' && info.volta_almoco != '') {
 			info.almoco = helpers.dateTime.getTimeDiff(info.volta_almoco, info.ida_almoco);
-		} else {
-			info.almoco = new hrs.timeStamp(settings.lunchTime * 60 * 60 * 1000);
 		}
 
 		if(info.entrada != '' && info.saida != ''){

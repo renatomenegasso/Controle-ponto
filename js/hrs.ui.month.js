@@ -123,9 +123,7 @@ hrs.ui.month = function(month, year) {
 		$row.find('.excedente').html(info.excedente);
 		$row.find('.almoco').html(info.almoco);
 
-		if(jsonInfo.entrada != ''){
-			$row.find('.end').attr('placeholder', info.expectedExit);
-		}
+		$row.find('.end').attr('placeholder', info.expectedExit);
 		
 		if(_updatedRowCallback != null) _updatedRowCallback($row, info);
 	}	
